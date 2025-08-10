@@ -121,12 +121,3 @@ curl "http://127.0.0.1:8000/api/portafolios/1/evolucion/?fecha_inicio=2022-02-15
 * El proyecto está configurado para aceptar peticiones POST sin token CSRF en endpoints de API.
 * La carga de datos desde Excel requiere que las hojas se llamen `weights` y `precios` (sin importar mayúsculas/minúsculas).
 * Si se utiliza otra base de datos, modificar `settings.py` en la sección `DATABASES`.
-
-## Licencia
-
-MIT
-
-```
-
-¿Quieres que también te prepare un **`requirements.txt`** para incluirlo en la entrega? Así el evaluador podrá instalar todo rápido.
-```
