@@ -40,12 +40,12 @@ class RegistrarOperacionAPIView(View):
                         # Reducir cantidad de activo en portafolio
                         Cantidad.objects.filter(portafolio=pf, activo=activo).update(cantidad=F('cantidad') - cantidad)
 
-                    # Registrar operación
+                    # Registrar operación "crea objeto"
                     operaciones.append(Operacion(portafolio=pf, activo=activo, fecha=fecha, cantidad=cantidad, tipo=tipo))
 
                 except Exception as e:
                     return JsonResponse({"detail": str(e)}, status=400)
-
+            #inserta la operación en la base de datos
             Operacion.objects.bulk_create(operaciones)
 
             # Recalcular C_{i,t}, w_{i,t}, y V_t después de cada operación
@@ -77,7 +77,6 @@ class RegistrarOperacionAPIView(View):
                 # Actualizamos los datos en la base de datos
                 Cantidad.objects.filter(portafolio=pf, activo=activo).update(cantidad=xi)  # Eliminado 'fecha'
                 # Aquí puedes también actualizar el valor total en alguna tabla si es necesario
-
 
 class EvolucionPortafolioAPIView(View):
     """
@@ -161,7 +160,6 @@ class EvolucionPortafolioAPIView(View):
             "weights": weights_series,
         }
         return JsonResponse(data, status=200, json_dumps_params={"ensure_ascii": False})
-
 
 def viz_evolucion(request):
     # defaults (primer portafolio + rango total de precios)
